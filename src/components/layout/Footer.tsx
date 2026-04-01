@@ -29,7 +29,7 @@ export function Footer() {
               Mil Córdobas
             </Text>
             <Text color="gray.500" fontSize="sm">
-              Rock desde Alfaro, La Rioja {currentYear}
+              Rock desde Córdoba desde {currentYear}
             </Text>
           </VStack>
 
@@ -49,17 +49,17 @@ export function Footer() {
                 letterSpacing="widest"
                 position="relative"
                 _hover={{ color: 'brand.500', textDecoration: 'none' }}
-                sx={{
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: '-2px',
-                    left: 0,
-                    width: 0,
-                    height: '1px',
-                    bg: 'brand.500',
-                    transition: 'width 0.3s',
-                  },
+                _after={{
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '-2px',
+                  left: 0,
+                  width: 0,
+                  height: '1px',
+                  bg: 'brand.500',
+                  transition: 'width 0.3s',
+                }}
+                __css={{
                   '&:hover::after': {
                     width: '100%',
                   },
