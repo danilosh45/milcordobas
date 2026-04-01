@@ -1,4 +1,4 @@
-import { Box, Heading, VStack, HStack, Badge, Button, Text } from '@chakra-ui/react';
+import { Box, Heading, VStack, HStack, Badge, Button, Text, Link } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { FadeIn } from '@/components/ui/FadeIn';
@@ -11,7 +11,6 @@ interface GigsProps {
 export function Gigs({ gigs }: GigsProps) {
   return (
     <Box as="section" id="conciertos" py={24} position="relative">
-      {/* Decoración de fondo */}
       <Box
         position="absolute"
         top={0}
@@ -91,18 +90,24 @@ export function Gigs({ gigs }: GigsProps) {
                     {gig.status}
                   </Badge>
                   {gig.ticketUrl && gig.status !== 'Agotado' && (
-                    <Button 
-                      as="a" 
-                      href={gig.ticketUrl} 
-                      target="_blank" 
-                      size="md" 
-                      bg="brand.500" 
-                      color="white" 
+                    <Link
+                      href={gig.ticketUrl}
+                      target="_blank"
+                      display="inline-flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      px={4}
+                      py={2}
+                      borderRadius="md"
+                      bg="brand.500"
+                      color="white"
+                      fontSize="md"
+                      fontWeight="semibold"
                       _hover={{ bg: 'red.600', transform: 'scale(1.05)' }}
                       transition="all 0.2s"
                     >
                       Entradas
-                    </Button>
+                    </Link>
                   )}
                 </HStack>
               </HStack>
