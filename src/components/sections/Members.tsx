@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Heading, SimpleGrid, VStack, Image, Text, HStack, Badge, chakra } from '@chakra-ui/react';
+import { Box, Heading, SimpleGrid, VStack, Image, Text, HStack, Badge } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FadeIn } from '@/components/ui/FadeIn';
 import type { Member } from '@/lib/notion';
@@ -313,9 +313,9 @@ export function Members({ members }: MembersProps) {
                         <Text fontSize="10px" color="gray.600" fontFamily="mono">
                           MIEMBRO DESDE: {member.since}
                         </Text>
-                        <chakra.svg
-                          w="60px"
-                          h="60px"
+                        <svg
+                          width="60"
+                          height="60"
                           viewBox="0 0 100 100"
                         >
                           {[...Array(20)].map((_, i) => (
@@ -328,10 +328,10 @@ export function Members({ members }: MembersProps) {
                               fill="white"
                             />
                           ))}
-                        </chakra.svg>
+                        </svg>
                       </HStack>
                     </VStack>
-                    </Box>
+                  </Box>
 
                   <Box
                     position="absolute"
