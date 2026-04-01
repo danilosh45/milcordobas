@@ -36,8 +36,10 @@ export function Hero({ heroImage }: HeroProps) {
         <Text fontSize="2xl" color="gray.300" fontWeight="light">
           Buenas Practicas
         </Text>
-        <Button as={NextLink} href="#conciertos" size="lg" bg="brand.500" color="white" _hover={{ bg: 'red.600' }} px={8}>
-          Ver Conciertos
+        <Button asChild size="lg" bg="brand.500" color="white" _hover={{ bg: 'red.600' }} px={8}>
+          <NextLink href="#conciertos">
+            Ver Conciertos
+          </NextLink>
         </Button>
       </VStack>
     </Box>
