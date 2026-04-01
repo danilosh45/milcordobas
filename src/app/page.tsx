@@ -18,13 +18,13 @@ export default async function Home() {
   return (
     <Layout>
       {/* Video local tiene prioridad sobre imagen de Notion */}
-      <Hero 
-        heroVideo="/videos/hero.mp4" 
-        heroImage={heroImage} 
+      <Hero
+        heroVideo="/videos/hero.mp4"
+        heroImage={heroImage ?? null}
       />
-      <Gigs gigs={gigs} />
-      <Gallery items={gallery} />
-      <Members members={members} />
+      <Gigs gigs={gigs ?? []} />
+      <Gallery items={gallery ?? []} />
+      <Members members={members ?? []} />
     </Layout>
   );
 }
