@@ -3,6 +3,9 @@ import { Providers } from '@/components/providers';
 export const metadata = {
   title: 'Mil Córdobas | Buenas Practicas',
   description: 'Banda de rock directo y sin filtros',
+  icons: {
+    icon: '/favicon.svg',
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
