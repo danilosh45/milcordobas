@@ -1,23 +1,32 @@
+'use client';
+
 import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import NextLink from 'next/link';
 
-export function Hero() {
+interface HeroProps {
+  heroImage?: string | null;
+}
+
+export function Hero({ heroImage }: HeroProps) {
+  const bgImage = heroImage || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920';
+
   return (
-    <Box 
-      h="80vh" 
-      display="flex" 
-      alignItems="center" 
+    <Box
+      h="80vh"
+      display="flex"
+      alignItems="center"
       justifyContent="center"
       textAlign="center"
       bgGradient="linear(to-b, gray.900, brand.900)"
       position="relative"
     >
-      <Box 
-        position="absolute" 
-        inset={0} 
-        bgImage="url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920')" 
-        bgSize="cover" 
-        bgPosition="center"
+      <Box
+        position="absolute"
+        inset={0}
+        bgImage={`url('${bgImage}')`}
+        bgSize="cover"
+        backgroundPosition="center"
         opacity={0.3}
       />
       <VStack gap={6} position="relative" zIndex={1}>
