@@ -1,4 +1,5 @@
 import { Box, Flex, Text, Link, HStack, VStack } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import { FadeIn } from '@/components/ui/FadeIn';
 
 export function Footer() {
@@ -39,34 +40,31 @@ export function Footer() {
               { label: 'Spotify', href: 'https://spotify.com' },
               { label: 'YouTube', href: 'https://youtube.com' },
             ].map((social) => (
-              <Link
+              <motion.div
                 key={social.label}
-                href={social.href}
-                target="_blank"
-                color="gray.500"
-                fontSize="sm"
-                textTransform="uppercase"
-                letterSpacing="widest"
-                position="relative"
-                _hover={{ color: 'brand.500', textDecoration: 'none' }}
-                _after={{
-                  content: '""',
-                  position: 'absolute',
-                  bottom: '-2px',
-                  left: 0,
-                  width: 0,
-                  height: '1px',
-                  bg: 'brand.500',
-                  transition: 'width 0.3s',
-                }}
-                __css={{
-                  '&:hover::after': {
-                    width: '100%',
-                  },
-                }}
+                whileHover={{ y: -2 }}
+                transition={{ duration: 0.2 }}
               >
-                {social.label}
-              </Link>
+                <Link
+                  href={social.href}
+                  target="_blank"
+                  color="gray.500"
+                  fontSize="sm"
+                  textTransform="uppercase"
+                  letterSpacing="widest"
+                  borderBottom="1px solid"
+                  borderColor="transparent"
+                  _hover={{ 
+                    color: 'brand.500', 
+                    textDecoration: 'none',
+                    borderColor: 'brand.500'
+                  }}
+                  transition="all 0.3s"
+                  pb={1}
+                >
+                  {social.label}
+                </Link>
+              </motion.div>
             ))}
           </HStack>
 
