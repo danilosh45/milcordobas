@@ -11,6 +11,7 @@ const getFiles = (prop: any) =>
 
 export async function getGigs(): Promise<Gig[]> {
   try {
+    if (!NOTION_DATABASES.gigs) return [];
     const response = await notion.databases.query({
       database_id: NOTION_DATABASES.gigs,
       filter: { property: 'Fecha', date: { on_or_after: new Date().toISOString().split('T')[0] } },
@@ -33,6 +34,7 @@ export async function getGigs(): Promise<Gig[]> {
 
 export async function getGallery(): Promise<GalleryItem[]> {
   try {
+    if (!NOTION_DATABASES.gallery) return [];
     const response = await notion.databases.query({
       database_id: NOTION_DATABASES.gallery,
     });
@@ -49,6 +51,7 @@ export async function getGallery(): Promise<GalleryItem[]> {
 
 export async function getMembers(): Promise<Member[]> {
   try {
+    if (!NOTION_DATABASES.members) return [];
     const response = await notion.databases.query({
       database_id: NOTION_DATABASES.members,
       sorts: [{ property: 'Orden', direction: 'ascending' }],
@@ -68,6 +71,7 @@ export async function getMembers(): Promise<Member[]> {
 
 export async function getHeroImage(): Promise<string | null> {
   try {
+    if (!NOTION_DATABASES.gallery) return null;
     const response = await notion.databases.query({
       database_id: NOTION_DATABASES.gallery,
       page_size: 1,

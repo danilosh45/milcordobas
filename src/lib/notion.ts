@@ -5,9 +5,9 @@ export const notion = new Client({
 });
 
 export const NOTION_DATABASES = {
-  gigs: process.env.NOTION_GIGS_DATABASE_ID!,
-  gallery: process.env.NOTION_GALLERY_DATABASE_ID!,
-  members: process.env.NOTION_MEMBERS_DATABASE_ID!,
+  gigs: process.env.NOTION_GIGS_DATABASE_ID ?? '',
+  gallery: process.env.NOTION_GALLERY_DATABASE_ID ?? '',
+  members: process.env.NOTION_MEMBERS_DATABASE_ID ?? '',
 };
 
 export interface Gig {

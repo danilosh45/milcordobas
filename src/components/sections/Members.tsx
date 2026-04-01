@@ -10,37 +10,37 @@ interface MembersProps {
 }
 
 const PLACEHOLDER_MEMBERS = [
-  { 
-    id: '1', 
-    name: 'DASH', 
-    role: 'Voz & Guitarra', 
+  {
+    id: '1',
+    name: 'DASH',
+    role: 'Voz & Guitarra',
     photo: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400',
     crimes: 'Distorsión excesiva',
     wanted: 'A1',
     since: '2019'
   },
-  { 
-    id: '2', 
-    name: 'KIKO', 
-    role: 'Guitarra Principal', 
+  {
+    id: '2',
+    name: 'KIKO',
+    role: 'Guitarra Principal',
     photo: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400',
     crimes: 'Solos interminables',
     wanted: 'B2',
     since: '2019'
   },
-  { 
-    id: '3', 
-    name: 'MARTA', 
-    role: 'Bajo', 
+  {
+    id: '3',
+    name: 'MARTA',
+    role: 'Bajo',
     photo: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=400',
     crimes: 'Grooves ilegales',
     wanted: 'C3',
     since: '2020'
   },
-  { 
-    id: '4', 
-    name: 'LUCAS', 
-    role: 'Batería', 
+  {
+    id: '4',
+    name: 'LUCAS',
+    role: 'Batería',
     photo: 'https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=400',
     crimes: 'Ritmos peligrosos',
     wanted: 'D4',
@@ -106,12 +106,18 @@ function BackgroundPattern() {
 }
 
 export function Members({ members }: MembersProps) {
-  const displayMembers = members.length > 0 
+  const CRIMES = ['Distorsión excesiva', 'Solos interminables', 'Grooves ilegales', 'Ritmos peligrosos'];
+
+  const displayMembers = members.length > 0
     ? members.map((m, i) => ({
-        ...m,
-        crimes: ['Distorsión excesiva', 'Solos interminables', 'Grooves ilegales', 'Ritmos peligrosos'][i % 4],
+        id: m.id,
+        name: m.name,
+        role: m.role,
+        photo: m.photo ?? null,
+        order: m.order,
+        crimes: CRIMES[i % 4],
         wanted: `A${i + 1}`,
-        since: '2019'
+        since: '2019',
       }))
     : PLACEHOLDER_MEMBERS;
 
@@ -122,7 +128,7 @@ export function Members({ members }: MembersProps) {
         inset={0}
         bgGradient="linear(to-b, gray.900, black)"
       />
-      
+
       <Box
         position="absolute"
         top={0}
@@ -145,8 +151,8 @@ export function Members({ members }: MembersProps) {
             >
               Ficheros de la banda
             </Text>
-            <Heading 
-              size="2xl" 
+            <Heading
+              size="2xl"
               textTransform="uppercase"
               letterSpacing="tight"
               fontWeight="black"
@@ -220,7 +226,7 @@ export function Members({ members }: MembersProps) {
                       boxShadow="inset 0 0 20px rgba(0,0,0,0.3)"
                     >
                       <Image
-                        src={member.photo}
+                        src={member.photo ?? undefined}
                         alt={member.name}
                         w="full"
                         aspectRatio="1"
@@ -229,7 +235,7 @@ export function Members({ members }: MembersProps) {
                         _hover={{ filter: 'grayscale(0%) contrast(100%)' }}
                         transition="all 0.3s"
                       />
-                      
+
                       <Box
                         position="absolute"
                         bottom={6}
@@ -288,7 +294,7 @@ export function Members({ members }: MembersProps) {
                         <Text fontSize="sm" color="red.200" fontStyle="italic">
                           "{member.crimes}"
                         </Text>
-                        
+
                         <Box
                           position="absolute"
                           top={-2}
@@ -308,9 +314,9 @@ export function Members({ members }: MembersProps) {
                           MIEMBRO DESDE: {member.since}
                         </Text>
                         <chakra.svg
-                           w="60px"
-                           h="60px"
-                           viewBox="0 0 100 100" 
+                          w="60px"
+                          h="60px"
+                          viewBox="0 0 100 100"
                         >
                           {[...Array(20)].map((_, i) => (
                             <rect
@@ -325,7 +331,7 @@ export function Members({ members }: MembersProps) {
                         </chakra.svg>
                       </HStack>
                     </VStack>
-                  </Box>
+                    </Box>
 
                   <Box
                     position="absolute"
@@ -358,7 +364,7 @@ export function Members({ members }: MembersProps) {
             fontSize="sm"
             fontFamily="mono"
           >
-            ⚠️  Si tiene información sobre estos individuos, no llame a nadie. 
+            ⚠️  Si tiene información sobre estos individuos, no llame a nadie.
             Solo vaya a un concierto.
           </Text>
         </FadeIn>
