@@ -84,7 +84,7 @@ export function Hero({ heroImage, heroVideo }: HeroProps) {
             color="brand.500"
             fontWeight="bold"
           >
-            Rock desde Córdoba
+            Rock desde Alfaro, La Rioja 
           </Text>
         </motion.div>
 
