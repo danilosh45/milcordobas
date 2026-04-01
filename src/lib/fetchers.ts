@@ -1,4 +1,3 @@
-// v2 - toPlain fix
 import { notion, NOTION_DATABASES, type Gig, type GalleryItem, type Member } from './notion';
 
 const getTitle = (prop: any) => prop?.title?.[0]?.plain_text || '';
