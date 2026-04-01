@@ -48,7 +48,6 @@ const PLACEHOLDER_MEMBERS = [
   },
 ];
 
-// Sello "WANTED" animado
 function WantedStamp({ code }: { code: string }) {
   return (
     <Box
@@ -87,7 +86,6 @@ function WantedStamp({ code }: { code: string }) {
   );
 }
 
-// Patrón de fondo estilo "documento oficial"
 function BackgroundPattern() {
   return (
     <Box
@@ -119,14 +117,12 @@ export function Members({ members }: MembersProps) {
 
   return (
     <Box as="section" id="banda" py={24} position="relative" overflow="hidden">
-      {/* Fondo oscuro con degradado */}
       <Box
         position="absolute"
         inset={0}
         bgGradient="linear(to-b, gray.900, black)"
       />
       
-      {/* Líneas de "documento confidencial" */}
       <Box
         position="absolute"
         top={0}
@@ -187,7 +183,6 @@ export function Members({ members }: MembersProps) {
                   <BackgroundPattern />
                   <WantedStamp code={member.wanted} />
 
-                  {/* Header del carnet */}
                   <Box
                     bg="gray.900"
                     px={4}
@@ -216,7 +211,6 @@ export function Members({ members }: MembersProps) {
                     </HStack>
                   </Box>
 
-                  {/* Foto estilo mugshot */}
                   <Box position="relative" p={4}>
                     <Box
                       bg="gray.200"
@@ -236,7 +230,6 @@ export function Members({ members }: MembersProps) {
                         transition="all 0.3s"
                       />
                       
-                      {/* Número de expediente sobre la foto */}
                       <Box
                         position="absolute"
                         bottom={6}
@@ -253,7 +246,6 @@ export function Members({ members }: MembersProps) {
                     </Box>
                   </Box>
 
-                  {/* Datos del carnet */}
                   <Box px={4} pb={4}>
                     <VStack align="start" gap={3}>
                       <Box w="full">
@@ -282,8 +274,7 @@ export function Members({ members }: MembersProps) {
 
                       <Box
                         w="full"
-                        bg="red.900"
-                        bgOpacity={0.2}
+                        bg="rgba(127, 29, 29, 0.2)"
                         border="1px solid"
                         borderColor="red.500"
                         borderRadius="md"
@@ -298,7 +289,6 @@ export function Members({ members }: MembersProps) {
                           "{member.crimes}"
                         </Text>
                         
-                        {/* Efecto "sellado" */}
                         <Box
                           position="absolute"
                           top={-2}
@@ -323,13 +313,12 @@ export function Members({ members }: MembersProps) {
                           h="60px"
                           viewBox="0 0 100 100"
                         >
-                          {/* Código de barras fake */}
                           {[...Array(20)].map((_, i) => (
                             <rect
                               key={i}
                               x={i * 5}
                               y={20}
-                              width={Math.random() > 0.5 ? 3 : 1}
+                              width={i % 2 === 0 ? 3 : 1}
                               height={40}
                               fill="white"
                             />
@@ -339,7 +328,6 @@ export function Members({ members }: MembersProps) {
                     </VStack>
                   </Box>
 
-                  {/* Cinta de "evidencia" en diagonal */}
                   <Box
                     position="absolute"
                     bottom={-10}
@@ -363,7 +351,6 @@ export function Members({ members }: MembersProps) {
           ))}
         </SimpleGrid>
 
-        {/* Nota al pie estilo policial */}
         <FadeIn delay={0.6}>
           <Text
             textAlign="center"
