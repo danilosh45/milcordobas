@@ -1,19 +1,21 @@
 'use client';
 
 import { Box, Flex, Link, Heading, HStack, IconButton, VStack, Text } from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import NextLink from 'next/link';
 import { useState, useEffect } from 'react';
 
+// Logo SVG como componente normal (no Chakra)
 function Logo({ scrolled }: { scrolled: boolean }) {
   return (
     <Box display="flex" alignItems="center" gap={3}>
-      <Box
-        as="svg"
+      <svg
         viewBox="0 0 40 40"
-        w="40px"
-        h="40px"
+        width="40px"
+        height="40px"
         fill="none"
+        style={{ display: 'block' }}
       >
         <motion.circle
           cx="20"
@@ -25,7 +27,7 @@ function Logo({ scrolled }: { scrolled: boolean }) {
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 1 }}
-          color={scrolled ? '#dc2626' : '#dc2626'}
+          color="#dc2626"
         />
         <motion.path
           d="M12 28V12L20 20L28 12V28"
@@ -40,7 +42,7 @@ function Logo({ scrolled }: { scrolled: boolean }) {
           color="currentColor"
         />
         <circle cx="20" cy="32" r="2" fill="currentColor" />
-      </Box>
+      </svg>
       
       <Box>
         <Heading 
@@ -57,14 +59,6 @@ function Logo({ scrolled }: { scrolled: boolean }) {
             MIL
           </Box>
         </Heading>
-        <Text 
-          fontSize="xs" 
-          color="gray.500" 
-          letterSpacing="widest"
-          textTransform="uppercase"
-          mt={-1}
-        >
-        </Text>
       </Box>
     </Box>
   );
@@ -162,21 +156,6 @@ export function Navbar() {
                 color="whiteAlpha.900"
                 position="relative"
                 _hover={{ color: 'brand.500', textDecoration: 'none' }}
-                sx={{
-                  '&::after': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: '-4px',
-                    left: 0,
-                    width: 0,
-                    height: '2px',
-                    bg: 'brand.500',
-                    transition: 'width 0.3s ease',
-                  },
-                  '&:hover::after': {
-                    width: '100%',
-                  },
-                }}
               >
                 {link.label}
               </Link>
@@ -189,25 +168,23 @@ export function Navbar() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Link
-              as={NextLink}
-              href="/"
-              px={4}
-              py={2}
-              borderRadius="full"
-              bg="brand.500"
-              color="white"
-              fontSize="sm"
-              fontWeight="bold"
-              textTransform="uppercase"
-              letterSpacing="widest"
-              _hover={{ 
-                bg: 'red.600', 
-                transform: 'translateY(-2px)',
-                boxShadow: '0 10px 20px rgba(220, 38, 38, 0.3)'
-              }}
-              transition="all 0.3s"
+              asChild
             >
-              Inicio
+              <NextLink 
+                href="/"
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '9999px',
+                  background: '#dc2626',
+                  color: 'white',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                }}
+              >
+                Inicio
+              </NextLink>
             </Link>
           </motion.div>
         </HStack>
