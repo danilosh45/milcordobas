@@ -5,7 +5,7 @@ export const metadata = {
   description: 'Banda de rock directo y sin filtros',
   icons: {
     icon: '/favicon.svg',
-  }
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
