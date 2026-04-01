@@ -68,7 +68,10 @@ export function Gigs({ gigs }: GigsProps) {
                     textTransform="uppercase"
                     letterSpacing="widest"
                   >
-                    {format(new Date(gig.date), 'EEEE d MMMM yyyy', { locale: es })}
+		      {gig.date 
+			  ? format(new Date(gig.date), 'EEEE d MMMM yyyy', { locale: es })
+			  : 'Fecha por confirmar'
+			}
                   </Text>
                   <Heading size="lg" fontWeight="bold">
                     {gig.venue}
