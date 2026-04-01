@@ -6,11 +6,10 @@ import NextLink from 'next/link';
 
 interface HeroProps {
   heroImage?: string | null;
-  heroVideo?: string | null; // Nuevo: URL del video
+  heroVideo?: string | null;
 }
 
 export function Hero({ heroImage, heroVideo }: HeroProps) {
-  // Prioridad: video > imagen de Notion > placeholder
   const bgMedia = heroVideo || heroImage || 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1920';
   const isVideo = heroVideo || bgMedia.endsWith('.mp4') || bgMedia.endsWith('.webm');
 
@@ -23,30 +22,30 @@ export function Hero({ heroImage, heroVideo }: HeroProps) {
       textAlign="center"
       position="relative"
       overflow="hidden"
-      w="100vw" // Full viewport width
+      w="100vw"
       left="50%"
       right="50%"
       marginLeft="-50vw"
       marginRight="-50vw"
     >
-      {/* Background: Video o Imagen */}
       {isVideo ? (
-        <Box
-          as="video"
+        <video
           autoPlay
           muted
           loop
           playsInline
-          position="absolute"
-          top={0}
-          left={0}
-          w="100%"
-          h="100%"
-          objectFit="cover"
-          zIndex={0}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
         >
           <source src={bgMedia} type="video/mp4" />
-        </Box>
+        </video>
       ) : (
         <motion.div
           initial={{ scale: 1.1 }}
@@ -65,17 +64,14 @@ export function Hero({ heroImage, heroVideo }: HeroProps) {
         />
       )}
 
-      {/* Overlay más oscuro para legibilidad */}
       <Box
         position="absolute"
         inset={0}
-        bg="blackAlpha.700" // Más oscuro para que resalte el texto
+        bg="blackAlpha.700"
         zIndex={1}
       />
 
-      {/* Contenido */}
       <VStack gap={8} position="relative" zIndex={2} px={4}>
-        {/* ... resto igual ... */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -124,25 +120,14 @@ export function Hero({ heroImage, heroVideo }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
         >
-          <Button 
-            as={NextLink} 
-            href="#conciertos" 
-            size="lg" 
-            bg="brand.500" 
-            color="white" 
-            _hover={{ bg: 'red.600', transform: 'translateY(-2px)' }}
-            px={10}
-            py={7}
-            fontSize="lg"
-            boxShadow="0 10px 40px rgba(220, 38, 38, 0.4)"
-            transition="all 0.3s"
-          >
-            Ver Conciertos
+          <Button asChild size="lg" bg="brand.500" color="white" _hover={{ bg: 'red.600', transform: 'translateY(-2px)' }} px={10} py={7} fontSize="lg" boxShadow="0 10px 40px rgba(220, 38, 38, 0.4)" transition="all 0.3s">
+            <NextLink href="#conciertos">
+              Ver Conciertos
+            </NextLink>
           </Button>
         </motion.div>
       </VStack>
 
-      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
