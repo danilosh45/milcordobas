@@ -30,7 +30,7 @@ export function Footer() {
               Mil Córdobas
             </Text>
             <Text color="gray.500" fontSize="sm">
-              Rock desde Alfaro desde el 2019 
+              Rock desde Alfaro 2019 
             </Text>
           </VStack>
 
