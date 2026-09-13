@@ -82,6 +82,7 @@ export function Navbar() {
   const navLinks = [
     { href: '/#conciertos', label: 'Conciertos' },
     { href: '/#galeria', label: 'Galería' },
+    { href: '/#tienda', label: 'Tienda' },
     { href: '/#banda', label: 'La Banda' },
   ];
 

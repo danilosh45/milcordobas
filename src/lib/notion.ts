@@ -8,6 +8,7 @@ export const NOTION_DATABASES = {
   gigs: process.env.NOTION_GIGS_DATABASE_ID ?? '',
   gallery: process.env.NOTION_GALLERY_DATABASE_ID ?? '',
   members: process.env.NOTION_MEMBERS_DATABASE_ID ?? '',
+  store: process.env.NOTION_STORE_DATABASE_ID ?? '',
 };
 
 export interface Gig {
@@ -31,5 +32,17 @@ export interface Member {
   name: string;
   role: string;
   photo?: string;
+  order: number;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  photos: string[];
+  sizes: string[];
+  status: string;
+  url: string;
   order: number;
 }

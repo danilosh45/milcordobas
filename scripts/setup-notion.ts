@@ -59,24 +59,68 @@ async function createMembersDatabase(pageId: string) {
   return db.id;
 }
 
+// Crear database de tienda
+async function createStoreDatabase(pageId: string) {
+  const db = await notion.databases.create({
+    parent: { page_id: pageId },
+    title: [{ text: { content: 'Tienda' } }],
+    properties: {
+      Nombre: { title: {} },
+      Descripción: { rich_text: {} },
+      Precio: { rich_text: {} },
+      Fotos: { files: {} },
+      Tallas: {
+        multi_select: {
+          options: [
+            { name: 'S', color: 'blue' },
+            { name: 'M', color: 'blue' },
+            { name: 'L', color: 'blue' },
+            { name: 'XL', color: 'blue' },
+            { name: 'Única', color: 'purple' }
+          ]
+        }
+      },
+      Estado: {
+        select: {
+          options: [
+            { name: 'Disponible', color: 'green' },
+            { name: 'Agotado', color: 'red' },
+            { name: 'Próximamente', color: 'yellow' }
+          ]
+        }
+      },
+      Enlace: { url: {} },
+      Orden: { number: { format: 'number' } }
+    }
+  });
+  return db.id;
+}
+
 async function main() {
+  const onlyStore = process.argv[2] === 'store';
   console.log('🔧 Setup Notion para Mil Córdoba...\n');
   console.log('📄 Usando página padre:', PARENT_PAGE_ID);
 
   try {
-    const gigsId = await createGigsDatabase(PARENT_PAGE_ID);
-    console.log('✅ Database Conciertos:', gigsId);
+    if (!onlyStore) {
+      const gigsId = await createGigsDatabase(PARENT_PAGE_ID);
+      console.log('✅ Database Conciertos:', gigsId);
 
-    const galleryId = await createGalleryDatabase(PARENT_PAGE_ID);
-    console.log('✅ Database Galería:', galleryId);
+      const galleryId = await createGalleryDatabase(PARENT_PAGE_ID);
+      console.log('✅ Database Galería:', galleryId);
 
-    const membersId = await createMembersDatabase(PARENT_PAGE_ID);
-    console.log('✅ Database Miembros:', membersId);
+      const membersId = await createMembersDatabase(PARENT_PAGE_ID);
+      console.log('✅ Database Miembros:', membersId);
 
-    console.log('\n🎉 Listo! Copia esto a tu .env.local:');
-    console.log(`\nNOTION_GIGS_DATABASE_ID=${gigsId}`);
-    console.log(`NOTION_GALLERY_DATABASE_ID=${galleryId}`);
-    console.log(`NOTION_MEMBERS_DATABASE_ID=${membersId}`);
+      console.log('\n🎉 Listo! Copia esto a tu .env.local:');
+      console.log(`\nNOTION_GIGS_DATABASE_ID=${gigsId}`);
+      console.log(`NOTION_GALLERY_DATABASE_ID=${galleryId}`);
+      console.log(`NOTION_MEMBERS_DATABASE_ID=${membersId}`);
+    }
+
+    const storeId = await createStoreDatabase(PARENT_PAGE_ID);
+    console.log('✅ Database Tienda:', storeId);
+    console.log(`\nNOTION_STORE_DATABASE_ID=${storeId}`);
 
   } catch (error: any) {
     console.error('❌ Error:', error.message);
