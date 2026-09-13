@@ -19,6 +19,7 @@ export interface Gig {
   venue: string;
   ticketUrl?: string;
   status: string;
+  poster?: string | null;
 }
 
 export interface GalleryItem {

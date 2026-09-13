@@ -1,7 +1,8 @@
-import { Box, Heading, VStack, HStack, Badge, Button, Text, Link } from '@chakra-ui/react';
+import { Box, Heading, VStack, HStack, Badge, Button, Text, Link, Image } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { FadeIn } from '@/components/ui/FadeIn';
+import { NextGig } from '@/components/sections/NextGig';
 import type { Gig } from '@/lib/notion';
 
 interface GigsProps {
@@ -32,7 +33,7 @@ export function Gigs({ gigs }: GigsProps) {
         </Heading>
       </FadeIn>
 
-      <VStack gap={6} align="stretch" maxW="4xl" mx="auto">
+      <VStack gap={6} align="stretch" maxW="4xl" mx="auto" px={{ base: 4, md: 0 }}>
         {gigs.length === 0 ? (
           <FadeIn delay={0.2}>
             <Text textAlign="center" color="gray.500" fontSize="xl">
@@ -40,10 +41,12 @@ export function Gigs({ gigs }: GigsProps) {
             </Text>
           </FadeIn>
         ) : (
-          gigs.map((gig, index) => (
+          <>
+            <NextGig gig={gigs[0]} />
+            {gigs.slice(1).map((gig, index) => (
             <FadeIn key={gig.id} delay={index * 0.1}>
               <HStack
-                p={8}
+                p={6}
                 bg="whiteAlpha.50"
                 borderRadius="2xl"
                 justify="space-between"
@@ -52,34 +55,49 @@ export function Gigs({ gigs }: GigsProps) {
                 border="1px"
                 borderColor="whiteAlpha.100"
                 backdropFilter="blur(10px)"
-                _hover={{ 
-                  borderColor: 'brand.500', 
+                _hover={{
+                  borderColor: 'brand.500',
                   bg: 'whiteAlpha.100',
                   transform: 'translateX(10px)',
                   transition: 'all 0.3s ease'
                 }}
                 transition="all 0.3s ease"
               >
-                <VStack align="start" gap={2}>
-                  <Text 
-                    fontSize="sm" 
-                    color="brand.500" 
-                    fontWeight="bold" 
-                    textTransform="uppercase"
-                    letterSpacing="widest"
-                  >
-		      {gig.date 
-			  ? format(new Date(gig.date), 'EEEE d MMMM yyyy', { locale: es })
-			  : 'Fecha por confirmar'
-			}
-                  </Text>
-                  <Heading size="lg" fontWeight="bold">
-                    {gig.venue}
-                  </Heading>
-                  <Text color="gray.400" fontSize="lg">
-                    {gig.city}
-                  </Text>
-                </VStack>
+                <HStack gap={5} align="center">
+                  {gig.poster && (
+                    <Image
+                      src={gig.poster}
+                      alt={`Cartel ${gig.venue}`}
+                      w="72px"
+                      h="72px"
+                      objectFit="cover"
+                      borderRadius="lg"
+                      border="1px solid"
+                      borderColor="whiteAlpha.200"
+                      flexShrink={0}
+                    />
+                  )}
+                  <VStack align="start" gap={2}>
+                    <Text
+                      fontSize="sm"
+                      color="brand.500"
+                      fontWeight="bold"
+                      textTransform="uppercase"
+                      letterSpacing="widest"
+                    >
+                      {gig.date
+                        ? format(new Date(gig.date), 'EEEE d MMMM yyyy', { locale: es })
+                        : 'Fecha por confirmar'
+                      }
+                    </Text>
+                    <Heading size="lg" fontWeight="bold">
+                      {gig.venue}
+                    </Heading>
+                    <Text color="gray.400" fontSize="lg">
+                      {gig.city}
+                    </Text>
+                  </VStack>
+                </HStack>
 
                 <HStack gap={4}>
                   <Badge 
@@ -115,7 +133,8 @@ export function Gigs({ gigs }: GigsProps) {
                 </HStack>
               </HStack>
             </FadeIn>
-          ))
+            ))}
+          </>
         )}
       </VStack>
     </Box>

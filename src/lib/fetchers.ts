@@ -31,6 +31,7 @@ export async function getGigs(): Promise<Gig[]> {
       venue: getText(page.properties.Sala),
       ticketUrl: getUrl(page.properties.Entradas),
       status: getSelect(page.properties.Estado) || 'Anunciado',
+      poster: getFiles(page.properties.Cartel)[0] ?? null,
     })));
   } catch (e) {
     console.error('[getGigs] Error:', e);
