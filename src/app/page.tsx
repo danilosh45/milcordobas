@@ -6,9 +6,9 @@ import { Members } from '@/components/sections/Members';
 import { Store } from '@/components/sections/Store';
 import { getGigs, getGallery, getMembers, getHeroImage, getProducts } from '@/lib/fetchers';
 
-// Sin caché ISR: cada visita consulta Notion directamente,
-// así que los cambios en el CMS se ven al instante.
-export const dynamic = 'force-dynamic';
+// Caché ISR de 1 minuto: los cambios en Notion se ven casi al instante
+// sin saturar la API en cada visita.
+export const revalidate = 60;
 
 const CRIMES = ['Distorsión excesiva', 'Solos interminables', 'Grooves ilegales', 'Ritmos peligrosos'];
 
