@@ -22,6 +22,41 @@ const STATUS_COLORS: Record<string, string> = {
   Próximamente: 'yellow',
 };
 
+// Mientras sea true, la sección muestra solo el teaser "Próximamente"
+// y no el catálogo. Poner a false para lanzar la tienda.
+const STORE_COMING_SOON = true;
+
+function ComingSoon() {
+  return (
+    <VStack gap={6} textAlign="center" px={4}>
+      <FadeIn delay={0.2}>
+        <Box
+          border="3px solid"
+          borderColor="red.500"
+          color="red.500"
+          px={8}
+          py={3}
+          fontWeight="black"
+          fontSize={{ base: 'xl', md: '2xl' }}
+          textTransform="uppercase"
+          letterSpacing="widest"
+          transform="rotate(-3deg)"
+          position="relative"
+          display="inline-block"
+          _before={{ content: '""', position: 'absolute', inset: 0, border: '1px solid', borderColor: 'red.500', m: '3px' }}
+        >
+          Próximamente
+        </Box>
+      </FadeIn>
+      <FadeIn delay={0.35}>
+        <Text color="gray.400" fontSize="lg" maxW="md">
+          Estamos preparando el merchandising oficial. Muy pronto podrás conseguirlo a través de Bandcamp.
+        </Text>
+      </FadeIn>
+    </VStack>
+  );
+}
+
 export function Store({ products }: StoreProps) {
   const displayProducts = products.length > 0 ? products : PLACEHOLDER_PRODUCTS;
 
@@ -32,18 +67,22 @@ export function Store({ products }: StoreProps) {
 
       <Box position="relative" zIndex={1}>
         <FadeIn>
-          <VStack mb={16} textAlign="center">
+          <VStack mb={STORE_COMING_SOON ? 10 : 16} textAlign="center">
             <Text color="red.500" fontSize="sm" fontWeight="bold" letterSpacing="widest" textTransform="uppercase">
               Merchandising oficial
             </Text>
             <Heading size="2xl" textTransform="uppercase" letterSpacing="tight" fontWeight="black">
               Tienda
             </Heading>
-            <Text color="gray.500" fontSize="sm">Los pedidos se gestionan a través de Bandcamp</Text>
+            {!STORE_COMING_SOON && (
+              <Text color="gray.500" fontSize="sm">Los pedidos se gestionan a través de Bandcamp</Text>
+            )}
           </VStack>
         </FadeIn>
 
-        <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={8} px={{ base: 4, md: 8 }} maxW="7xl" mx="auto">
+        {STORE_COMING_SOON ? (
+          <ComingSoon />
+        ) : (<SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap={8} px={{ base: 4, md: 8 }} maxW="7xl" mx="auto">
           {displayProducts.map((product, index) => {
             const available = product.status === 'Disponible' && !!product.url;
             return (
@@ -155,6 +194,7 @@ export function Store({ products }: StoreProps) {
             );
           })}
         </SimpleGrid>
+        )}
       </Box>
     </Box>
   );
