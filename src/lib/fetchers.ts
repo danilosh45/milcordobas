@@ -20,7 +20,6 @@ export async function getGigs(): Promise<Gig[]> {
     if (!NOTION_DATABASES.gigs) return [];
     const response = await notion.databases.query({
       database_id: NOTION_DATABASES.gigs,
-      filter: { property: 'Fecha', date: { on_or_after: new Date().toISOString().split('T')[0] } },
       sorts: [{ property: 'Fecha', direction: 'ascending' }],
     });
     return toPlain(response.results.map((page: any) => ({

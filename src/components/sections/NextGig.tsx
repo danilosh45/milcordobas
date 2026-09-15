@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { PosterThumb } from '@/components/sections/PosterThumb';
 import type { Gig } from '@/lib/notion';
 
 interface NextGigProps {
@@ -82,20 +83,7 @@ export function NextGig({ gig }: NextGigProps) {
         borderColor="red.500"
         boxShadow="0 25px 60px rgba(220, 38, 38, 0.25)"
       >
-        {gig.poster && (
-          <>
-            <Box
-              position="absolute"
-              inset={0}
-              bgImage={`url(${gig.poster})`}
-              bgSize="cover"
-              backgroundPosition="center"
-              filter="grayscale(40%) brightness(0.35)"
-            />
-            <Box position="absolute" inset={0} bgGradient="linear(to-t, black 20%, transparent)" />
-          </>
-        )}
-        {!gig.poster && <Box position="absolute" inset={0} bgGradient="linear(to-br, gray.900, black)" />}
+        <Box position="absolute" inset={0} bgGradient="linear(to-br, gray.900, black)" />
 
         <VStack position="relative" zIndex={1} gap={5} px={{ base: 6, md: 12 }} py={{ base: 8, md: 12 }} textAlign="center">
           <Text
@@ -122,6 +110,10 @@ export function NextGig({ gig }: NextGigProps) {
             </Heading>
             <Text color="gray.400" fontSize="xl">{gig.city}</Text>
           </Box>
+
+          {gig.poster && (
+            <PosterThumb src={gig.poster} alt={`Cartel ${gig.venue}`} size="120px" />
+          )}
 
           {isToday ? (
             <Text fontSize="3xl" fontWeight="black" color="red.500" textTransform="uppercase" letterSpacing="widest">
