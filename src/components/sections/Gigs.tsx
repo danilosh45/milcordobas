@@ -158,7 +158,7 @@ export function Gigs({ gigs }: GigsProps) {
               <HStack mt={12} mb={2} gap={4} align="center">
                 <Box flex={1} h="1px" bgGradient="linear(to-r, transparent, gray.600)" />
                 <Text color="gray.500" fontSize="sm" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
-                  Archivo
+                  Conciertos pasados
                 </Text>
                 <Box flex={1} h="1px" bgGradient="linear(to-l, transparent, gray.600)" />
               </HStack>

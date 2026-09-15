@@ -30,7 +30,7 @@ function getTimeLeft(target: Date): TimeLeft | null {
   };
 }
 
-function CountdownUnit({ value, label }: { value: number; label: string }) {
+function CountdownUnit({ value, label }: { value: number | null; label: string }) {
   return (
     <VStack gap={0}>
       <Box
@@ -44,7 +44,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
         textAlign="center"
       >
         <Text fontSize={{ base: '2xl', md: '3xl' }} fontWeight="black" fontFamily="mono" color="white">
-          {String(value).padStart(2, '0')}
+          {value === null ? '--' : String(value).padStart(2, '0')}
         </Text>
       </Box>
       <Text fontSize="10px" color="gray.400" textTransform="uppercase" letterSpacing="widest" mt={1}>
@@ -56,14 +56,19 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 
 export function NextGig({ gig }: NextGigProps) {
   const target = new Date(`${gig.date}T21:00:00`);
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(() => getTimeLeft(target));
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
+  const [isToday, setIsToday] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => setTimeLeft(getTimeLeft(target)), 1000);
+    const update = () => {
+      const next = getTimeLeft(target);
+      setTimeLeft(next);
+      setIsToday(next === null);
+    };
+    update();
+    const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
   }, [target]);
-
-  const isToday = !timeLeft;
 
   return (
     <motion.div
@@ -121,10 +126,10 @@ export function NextGig({ gig }: NextGigProps) {
             </Text>
           ) : (
             <HStack gap={{ base: 2, md: 4 }}>
-              <CountdownUnit value={timeLeft.days} label="días" />
-              <CountdownUnit value={timeLeft.hours} label="horas" />
-              <CountdownUnit value={timeLeft.minutes} label="min" />
-              <CountdownUnit value={timeLeft.seconds} label="seg" />
+              <CountdownUnit value={timeLeft?.days ?? null} label="días" />
+              <CountdownUnit value={timeLeft?.hours ?? null} label="horas" />
+              <CountdownUnit value={timeLeft?.minutes ?? null} label="min" />
+              <CountdownUnit value={timeLeft?.seconds ?? null} label="seg" />
             </HStack>
           )}
 
