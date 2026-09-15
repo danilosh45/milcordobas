@@ -4,6 +4,7 @@ import { Gigs } from '@/components/sections/Gigs';
 import { Gallery } from '@/components/sections/Gallery';
 import { Members } from '@/components/sections/Members';
 import { Store } from '@/components/sections/Store';
+import { Spotify } from '@/components/sections/Spotify';
 import { getGigs, getGallery, getMembers, getHeroImage, getProducts } from '@/lib/fetchers';
 
 // Caché ISR de 1 minuto: los cambios en Notion se ven casi al instante
@@ -39,6 +40,7 @@ export default async function Home() {
         heroImage={heroImage ?? null}
       />
       <Gigs gigs={gigs ?? []} />
+      <Spotify />
       <Gallery items={gallery ?? []} />
       <Store products={products ?? []} />
       <Members members={displayMembers} />

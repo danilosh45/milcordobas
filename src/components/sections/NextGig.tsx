@@ -58,6 +58,7 @@ export function NextGig({ gig }: NextGigProps) {
   const target = new Date(`${gig.date}T21:00:00`);
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
   const [isToday, setIsToday] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const update = () => {
@@ -69,6 +70,25 @@ export function NextGig({ gig }: NextGigProps) {
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
   }, [target]);
+
+  const shareUrl = 'https://milcordobas.club/#conciertos';
+  const shareText = `MIL CÓRDOBA toca en ${gig.venue} (${gig.city}) el ${format(new Date(gig.date), "d 'de' MMMM", { locale: es })}${timeLeft ? ` — quedan ${timeLeft.days} días` : ''}. ¡No te lo pierdas!`;
+
+  const shareLinks = [
+    { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}` },
+    { label: 'X', href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}` },
+    { label: 'Telegram', href: `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}` },
+  ];
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // portapapeles no disponible (HTTP o permisos denegados)
+    }
+  };
 
   return (
     <motion.div
@@ -160,6 +180,54 @@ export function NextGig({ gig }: NextGigProps) {
               Entradas agotadas
             </Text>
           )}
+
+          <VStack gap={2} pt={2}>
+            <Text fontSize="xs" color="gray.500" textTransform="uppercase" letterSpacing="widest">
+              Comparte este show
+            </Text>
+            <HStack gap={2} flexWrap="wrap" justify="center">
+              {shareLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  px={3}
+                  py={1}
+                  borderRadius="full"
+                  border="1px solid"
+                  borderColor="gray.600"
+                  color="gray.300"
+                  fontSize="xs"
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  letterSpacing="widest"
+                  _hover={{ borderColor: 'red.500', color: 'white', textDecoration: 'none' }}
+                  transition="all 0.2s"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Box
+                as="button"
+                px={3}
+                py={1}
+                borderRadius="full"
+                border="1px solid"
+                borderColor="gray.600"
+                color="gray.300"
+                fontSize="xs"
+                fontWeight="bold"
+                textTransform="uppercase"
+                letterSpacing="widest"
+                cursor="pointer"
+                onClick={copyLink}
+                _hover={{ borderColor: 'red.500', color: 'white' }}
+                transition="all 0.2s"
+              >
+                {copied ? '¡Copiado!' : 'Copiar'}
+              </Box>
+            </HStack>
+          </VStack>
         </VStack>
       </Box>
     </motion.div>
